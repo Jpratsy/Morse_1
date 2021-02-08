@@ -1,5 +1,5 @@
 input.onButtonPressed(Button.A, function () {
-    Letra = "" + Letra + "."
+	
 })
 input.onButtonPressed(Button.AB, function () {
     Espacio += 1
@@ -20,18 +20,44 @@ input.onButtonPressed(Button.AB, function () {
         Espacio = 0
     }
 })
+function Pulsacion () {
+    if (input.buttonIsPressed(Button.A)) {
+        pushed = 1
+        tpo_pulsacion = control.millis()
+        while (input.buttonIsPressed(Button.A)) {
+        	
+        }
+        tpo_pulsacion = control.millis() - tpo_pulsacion
+        push = control.millis()
+        if (tpo_pulsacion > 250) {
+            Cadena = "" + Cadena + "-"
+        } else {
+            Cadena = "" + Cadena + "."
+        }
+    }
+    if (pushed == 1 && control.millis() - push > 500) {
+        basic.showString("" + (Letras[Codigo.indexOf(Cadena)]))
+        Cadena = ""
+        pushed = 0
+    }
+}
 input.onButtonPressed(Button.B, function () {
     Letra = "" + Letra + "-"
 })
+let push = 0
+let tpo_pulsacion = 0
+let pushed = 0
 let Posicion = 0
-let Espacio = 0
 let Letra = ""
+let Espacio = 0
 let Codigo: string[] = []
 let Letras: string[] = []
+let Cadena = ""
 makerbit.connectLcd(39)
 makerbit.clearLcd1602()
+Cadena = ""
 Letras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ",", ";", ":", "?", "!", "WAIT", "UNDERSTAND", "DNU", "CALL", "FINISH"]
 Codigo = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----", ".....", ".-.-.-", ".,.,.,", "---...", "..--..", "--..--", "-..", "...-.", "-...-.", "-.-.-", ".-.-."]
 basic.forever(function () {
-	
+    Pulsacion()
 })

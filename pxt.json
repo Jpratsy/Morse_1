@@ -1,5 +1,5 @@
 {
-    "name": "-.",
+    "name": "Morse 3",
     "description": "",
     "dependencies": {
         "core": "*",
